@@ -2,9 +2,7 @@ use peroxide::fuga::*;
 use crate::score::{Subject::*, Subject, Record};
 use std::collections::HashMap;
 
-use crate::suneung_data::{
-    KOREAN_2023, MATH_2023, CHEM_2023, EARSCI_2023,
-};
+use crate::suneung_data::*;
 
 #[derive(Debug, Clone)]
 pub struct History {
@@ -50,7 +48,7 @@ impl History {
         for subject in [Korean, Math, Chemistry, EarthScience] {
             record.record(
                 subject,
-                self.eval(subject, student.percentile(subject)),
+                self.eval(subject, student.percentile(subject)).round(),
                 student.percentile(subject),
                 student.rank(subject),
             );
@@ -61,12 +59,32 @@ impl History {
         record
     }
 
+    pub fn load_2024() -> Self {
+        let mut history = Self::new(2024);
+        history.record(Korean, &KOREAN_2024.iter().map(|x| *x as f64).collect::<Vec<f64>>());
+        history.record(Math, &MATH_2024.iter().map(|x| *x as f64).collect::<Vec<f64>>());
+        history.record(Chemistry, &CHEM_2024.iter().map(|x| *x as f64).collect::<Vec<f64>>());
+        history.record(EarthScience, &EARSCI_2024.iter().map(|x| *x as f64).collect::<Vec<f64>>());
+
+        history
+    }
+
     pub fn load_2023() -> Self {
         let mut history = Self::new(2023);
         history.record(Korean, &KOREAN_2023.iter().map(|x| *x as f64).collect::<Vec<f64>>());
         history.record(Math, &MATH_2023.iter().map(|x| *x as f64).collect::<Vec<f64>>());
         history.record(Chemistry, &CHEM_2023.iter().map(|x| *x as f64).collect::<Vec<f64>>());
         history.record(EarthScience, &EARSCI_2023.iter().map(|x| *x as f64).collect::<Vec<f64>>());
+
+        history
+    }
+
+    pub fn load_2022() -> Self {
+        let mut history = Self::new(2022);
+        history.record(Korean, &KOREAN_2022.iter().map(|x| *x as f64).collect::<Vec<f64>>());
+        history.record(Math, &MATH_2022.iter().map(|x| *x as f64).collect::<Vec<f64>>());
+        history.record(Chemistry, &CHEM_2022.iter().map(|x| *x as f64).collect::<Vec<f64>>());
+        history.record(EarthScience, &EARSCI_2022.iter().map(|x| *x as f64).collect::<Vec<f64>>());
 
         history
     }
