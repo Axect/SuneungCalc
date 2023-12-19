@@ -159,6 +159,11 @@ impl Record {
         };
         let science = science_cand * weight.science / weight_sum_except_eng;
 
+        //let (math, science) = match university {
+        //    University::SEJONG => (math * 1.1, science * 1.1),
+        //    _ => (math, science),
+        //};
+
         let total = (korean + math + science) * 3f64;
 
         let eng_rank = self.english().rank();
@@ -182,15 +187,27 @@ pub enum University {
     DONGGUK,
     SEOULSCITECH,
     KWANGWOON,
+    INHA,
+    ERICA,
+    SEJONG,
+    KOOKMIN,
+    AJU,
+    SOONGSIL,
 }
 
 impl University {
     pub fn name(&self) -> &'static str {
         match self {
-            University::KYUNGHEE => "경희대",
+            University::KYUNGHEE => "경희대(서울)",
             University::DONGGUK => "동국대",
             University::SEOULSCITECH => "서울과기대",
             University::KWANGWOON => "광운대",
+            University::INHA => "인하대",
+            University::ERICA => "한양대(ERICA)",
+            University::SEJONG => "세종대",
+            University::KOOKMIN => "국민대",
+            University::AJU => "아주대",
+            University::SOONGSIL => "숭실대",
         }
     }
 }
@@ -240,6 +257,12 @@ impl UniversityWeight {
             (University::DONGGUK, 2022) => make_university_weight!(DONGGUK, 2022),
             (University::SEOULSCITECH, 2022) => make_university_weight!(SEOULSCITECH, 2022),
             (University::KWANGWOON, 2022) => make_university_weight!(KWANGWOON, 2022),
+            (University::INHA, 2022) => make_university_weight!(INHA, 2022),
+            (University::ERICA, 2022) => make_university_weight!(ERICA, 2022),
+            (University::SEJONG, 2022) => make_university_weight!(SEJONG, 2022),
+            (University::KOOKMIN, 2022) => make_university_weight!(KOOKMIN, 2022),
+            (University::AJU, 2022) => make_university_weight!(AJU, 2022),
+            (University::SOONGSIL, 2022) => make_university_weight!(SOONGSIL, 2022),
             _ => unimplemented!(),
         }
     }
