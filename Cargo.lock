@@ -532,6 +532,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "paste"
+version = "1.0.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "de3145af08024dea9fa9914f381a17b8fc6034dfb00f3a84013f7ff43f29ed4c"
+
+[[package]]
 name = "peroxide"
 version = "0.34.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -747,6 +753,7 @@ checksum = "2b2231b7c3057d5e4ad0156fb3dc807d900806020c5ffa3ee6ff2c8c76fb8520"
 name = "suneung2024"
 version = "0.1.0"
 dependencies = [
+ "paste",
  "peroxide",
 ]
 
