@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 paste = "1.0.14"
 peroxide = { version = "0.34.3", features = ["parquet"] }
+prettytable = "0.10.0"

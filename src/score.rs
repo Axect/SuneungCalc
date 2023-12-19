@@ -178,7 +178,21 @@ impl Record {
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum University {
-    KYUNGHEE
+    KYUNGHEE,
+    DONGGUK,
+    SEOULSCITECH,
+    KWANGWOON,
+}
+
+impl University {
+    pub fn name(&self) -> &'static str {
+        match self {
+            University::KYUNGHEE => "경희대",
+            University::DONGGUK => "동국대",
+            University::SEOULSCITECH => "서울과기대",
+            University::KWANGWOON => "광운대",
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -223,6 +237,9 @@ impl UniversityWeight {
     pub fn load(univ: University, year: usize) -> Self {
         match (univ, year) {
             (University::KYUNGHEE, 2022) => make_university_weight!(KYUNGHEE, 2022),
+            (University::DONGGUK, 2022) => make_university_weight!(DONGGUK, 2022),
+            (University::SEOULSCITECH, 2022) => make_university_weight!(SEOULSCITECH, 2022),
+            (University::KWANGWOON, 2022) => make_university_weight!(KWANGWOON, 2022),
             _ => unimplemented!(),
         }
     }
