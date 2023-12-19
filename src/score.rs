@@ -159,11 +159,6 @@ impl Record {
         };
         let science = science_cand * weight.science / weight_sum_except_eng;
 
-        //let (math, science) = match university {
-        //    University::SEJONG => (math * 1.1, science * 1.1),
-        //    _ => (math, science),
-        //};
-
         let total = (korean + math + science) * 3f64;
 
         let eng_rank = self.english().rank();
@@ -193,6 +188,7 @@ pub enum University {
     KOOKMIN,
     AJU,
     SOONGSIL,
+    KONKUK,
 }
 
 impl University {
@@ -208,6 +204,7 @@ impl University {
             University::KOOKMIN => "국민대",
             University::AJU => "아주대",
             University::SOONGSIL => "숭실대",
+            University::KONKUK => "건국대",
         }
     }
 }
@@ -253,6 +250,7 @@ macro_rules! make_university_weight {
 impl UniversityWeight {
     pub fn load(univ: University, year: usize) -> Self {
         match (univ, year) {
+            // 2022
             (University::KYUNGHEE, 2022) => make_university_weight!(KYUNGHEE, 2022),
             (University::DONGGUK, 2022) => make_university_weight!(DONGGUK, 2022),
             (University::SEOULSCITECH, 2022) => make_university_weight!(SEOULSCITECH, 2022),
@@ -263,6 +261,29 @@ impl UniversityWeight {
             (University::KOOKMIN, 2022) => make_university_weight!(KOOKMIN, 2022),
             (University::AJU, 2022) => make_university_weight!(AJU, 2022),
             (University::SOONGSIL, 2022) => make_university_weight!(SOONGSIL, 2022),
+            // 2023
+            (University::KYUNGHEE, 2023) => make_university_weight!(KYUNGHEE, 2023),
+            (University::DONGGUK, 2023) => make_university_weight!(DONGGUK, 2023),
+            (University::SEOULSCITECH, 2023) => make_university_weight!(SEOULSCITECH, 2023),
+            (University::KWANGWOON, 2023) => make_university_weight!(KWANGWOON, 2023),
+            (University::INHA, 2023) => make_university_weight!(INHA, 2023),
+            (University::ERICA, 2023) => make_university_weight!(ERICA, 2023),
+            (University::SEJONG, 2023) => make_university_weight!(SEJONG, 2023),
+            (University::KOOKMIN, 2023) => make_university_weight!(KOOKMIN, 2023),
+            (University::AJU, 2023) => make_university_weight!(AJU, 2023),
+            (University::SOONGSIL, 2023) => make_university_weight!(SOONGSIL, 2023),
+            // 2024
+            (University::KYUNGHEE, 2024) => make_university_weight!(KYUNGHEE, 2024),
+            (University::DONGGUK, 2024) => make_university_weight!(DONGGUK, 2024),
+            (University::SEOULSCITECH, 2024) => make_university_weight!(SEOULSCITECH, 2024),
+            (University::KWANGWOON, 2024) => make_university_weight!(KWANGWOON, 2024),
+            (University::INHA, 2024) => make_university_weight!(INHA, 2024),
+            (University::ERICA, 2024) => make_university_weight!(ERICA, 2024),
+            (University::SEJONG, 2024) => make_university_weight!(SEJONG, 2024),
+            (University::KOOKMIN, 2024) => make_university_weight!(KOOKMIN, 2024),
+            (University::AJU, 2024) => make_university_weight!(AJU, 2024),
+            (University::SOONGSIL, 2024) => make_university_weight!(SOONGSIL, 2024),
+            (University::KONKUK, 2024) => make_university_weight!(KONKUK, 2024),
             _ => unimplemented!(),
         }
     }

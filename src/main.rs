@@ -15,27 +15,32 @@ macro_rules! add_univ_score {
 }
 
 fn main() {
-    let record = Record::read_parquet("dongwoo");
-    let df = record.to_dataframe();
-    df.print();
+    let record_2024 = Record::read_parquet("dongwoo");
+    let df_2024 = record_2024.to_dataframe();
+    df_2024.print();
 
-    let df_2023 = History::load_2023().eval_all(&record).to_dataframe();
+    let record_2023 = History::load_2023().eval_all(&record_2024);
+    let df_2023 = record_2023.to_dataframe();
     df_2023.print();
 
-    let df_2022 = History::load_2022().eval_all(&record).to_dataframe();
+    let record_2022 = History::load_2022().eval_all(&record_2024);
+    let df_2022 = record_2022.to_dataframe();
     df_2022.print();
 
+    let record = record_2022;
+    let year = 2022;
+
     let mut table = Table::new();
-    add_univ_score!(table, record, KYUNGHEE, 2022);
-    add_univ_score!(table, record, DONGGUK, 2022);
-    add_univ_score!(table, record, SEOULSCITECH, 2022);
-    add_univ_score!(table, record, KOOKMIN, 2022);
-    add_univ_score!(table, record, INHA, 2022);
-    add_univ_score!(table, record, AJU, 2022);
-    add_univ_score!(table, record, ERICA, 2022);
-    add_univ_score!(table, record, SOONGSIL, 2022);
-    add_univ_score!(table, record, SEJONG, 2022);
-    add_univ_score!(table, record, KWANGWOON, 2022);
+    add_univ_score!(table, record, KYUNGHEE,        year);
+    add_univ_score!(table, record, DONGGUK,         year);
+    add_univ_score!(table, record, SEOULSCITECH,    year);
+    add_univ_score!(table, record, KOOKMIN,         year);
+    add_univ_score!(table, record, INHA,            year);
+    add_univ_score!(table, record, AJU,             year);
+    add_univ_score!(table, record, ERICA,           year);
+    add_univ_score!(table, record, SOONGSIL,        year);
+    add_univ_score!(table, record, SEJONG,          year);
+    add_univ_score!(table, record, KWANGWOON,       year);
 
     table.printstd();
 }
