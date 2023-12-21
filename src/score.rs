@@ -189,6 +189,7 @@ pub enum University {
     AJU,
     SOONGSIL,
     KONKUK,
+    CATHOLIC,
 }
 
 impl University {
@@ -205,6 +206,7 @@ impl University {
             University::AJU => "아주대",
             University::SOONGSIL => "숭실대",
             University::KONKUK => "건국대",
+            University::CATHOLIC => "가톨릭대",
         }
     }
 }
@@ -261,6 +263,7 @@ impl UniversityWeight {
             (University::KOOKMIN, 2022) => make_university_weight!(KOOKMIN, 2022),
             (University::AJU, 2022) => make_university_weight!(AJU, 2022),
             (University::SOONGSIL, 2022) => make_university_weight!(SOONGSIL, 2022),
+            (University::CATHOLIC, 2022) => make_university_weight!(CATHOLIC, 2022),
             // 2023
             (University::KYUNGHEE, 2023) => make_university_weight!(KYUNGHEE, 2023),
             (University::DONGGUK, 2023) => make_university_weight!(DONGGUK, 2023),
@@ -272,6 +275,7 @@ impl UniversityWeight {
             (University::KOOKMIN, 2023) => make_university_weight!(KOOKMIN, 2023),
             (University::AJU, 2023) => make_university_weight!(AJU, 2023),
             (University::SOONGSIL, 2023) => make_university_weight!(SOONGSIL, 2023),
+            (University::CATHOLIC, 2023) => make_university_weight!(CATHOLIC, 2023),
             // 2024
             (University::KYUNGHEE, 2024) => make_university_weight!(KYUNGHEE, 2024),
             (University::DONGGUK, 2024) => make_university_weight!(DONGGUK, 2024),
@@ -284,6 +288,7 @@ impl UniversityWeight {
             (University::AJU, 2024) => make_university_weight!(AJU, 2024),
             (University::SOONGSIL, 2024) => make_university_weight!(SOONGSIL, 2024),
             (University::KONKUK, 2024) => make_university_weight!(KONKUK, 2024),
+            (University::CATHOLIC, 2024) => make_university_weight!(CATHOLIC, 2024),
             _ => unimplemented!(),
         }
     }

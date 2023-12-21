@@ -56,6 +56,11 @@ pub const KONKUK_2024_ENG: [usize; 6] = [200, 198, 196, 193, 188, 183];
 pub const KONKUK_2024_SCI_REQ: usize = 2;
 pub const KONKUK_2024_ENG_REQ: usize = 2;
 
+pub const CATHOLIC_2024_WEIGHT: [usize; 4] = [30, 30, 20, 20];
+pub const CATHOLIC_2024_ENG: [usize; 6] = [200, 195, 190, 185, 180, 175];
+pub const CATHOLIC_2024_SCI_REQ: usize = 2;
+pub const CATHOLIC_2024_ENG_REQ: usize = 2;
+
 // ┌──────────────────────────────────────────────────────────┐
 //  2023
 // └──────────────────────────────────────────────────────────┘
@@ -109,6 +114,11 @@ pub const SOONGSIL_2023_ENG: [usize; 6] = [200, 194, 186, 173, 144, 116];
 pub const SOONGSIL_2023_SCI_REQ: usize = 2;
 pub const SOONGSIL_2023_ENG_REQ: usize = 2;
 
+pub const CATHOLIC_2023_WEIGHT: [usize; 4] = [30, 30, 20, 20];
+pub const CATHOLIC_2023_ENG: [usize; 6] = [140, 138, 136, 134, 130, 126];
+pub const CATHOLIC_2023_SCI_REQ: usize = 2;
+pub const CATHOLIC_2023_ENG_REQ: usize = 2;
+
 // ┌──────────────────────────────────────────────────────────┐
 //  2022
 // └──────────────────────────────────────────────────────────┘
@@ -161,3 +171,8 @@ pub const SOONGSIL_2022_WEIGHT: [usize; 4] = [20, 35, 20, 25];
 pub const SOONGSIL_2022_ENG: [usize; 6] = [200, 194, 186, 173, 144, 116];
 pub const SOONGSIL_2022_SCI_REQ: usize = 2;
 pub const SOONGSIL_2022_ENG_REQ: usize = 2;
+
+pub const CATHOLIC_2022_WEIGHT: [usize; 4] = [30, 30, 20, 20];
+pub const CATHOLIC_2022_ENG: [usize; 6] = [200, 196, 192, 188, 180, 170];
+pub const CATHOLIC_2022_SCI_REQ: usize = 2;
+pub const CATHOLIC_2022_ENG_REQ: usize = 2;
