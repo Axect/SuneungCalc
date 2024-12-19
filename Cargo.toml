@@ -1,11 +1,12 @@
 [package]
-name = "suneung2024"
+name = "suneung_calc"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+dialoguer = "0.11.0"
 paste = "1.0.14"
-peroxide = { version = "0.34.3", features = ["parquet"] }
+peroxide = { version = "0.39.0", features = ["parquet"] }
 prettytable = "0.10.0"

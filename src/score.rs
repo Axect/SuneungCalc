@@ -1,8 +1,8 @@
-use std::hash::Hash;
-use std::collections::HashMap;
-use peroxide::fuga::*;
-use paste::paste;
 use crate::university_weight::*;
+use paste::paste;
+use peroxide::fuga::*;
+use std::collections::HashMap;
+use std::hash::Hash;
 
 #[derive(Debug, Copy, Clone)]
 pub struct Score {
@@ -34,6 +34,18 @@ pub enum Subject {
     EarthScience,
 }
 
+impl Subject {
+    pub fn name(&self) -> &'static str {
+        match self {
+            Subject::Korean => "Korean",
+            Subject::Math => "Math",
+            Subject::English => "English",
+            Subject::Chemistry => "Chemistry",
+            Subject::EarthScience => "EarthScience",
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct Record {
     name: String,
@@ -49,7 +61,14 @@ impl Record {
     }
 
     pub fn record(&mut self, subject: Subject, standard_score: f64, percentile: f64, rank: usize) {
-        self.scores.insert(subject, Score { standard_score, percentile, rank });
+        self.scores.insert(
+            subject,
+            Score {
+                standard_score,
+                percentile,
+                rank,
+            },
+        );
     }
 
     pub fn name(&self) -> &str {
@@ -90,42 +109,57 @@ impl Record {
 
     pub fn to_dataframe(&self) -> DataFrame {
         let mut df = DataFrame::new(vec![]);
-        df.push("Korean", Series::new(vec![
-            self.korean().standard_score(),
-            self.korean().percentile(),
-            self.korean().rank() as f64,
-        ]));
-        df.push("Math", Series::new(vec![
-            self.math().standard_score(),
-            self.math().percentile(),
-            self.math().rank() as f64,
-        ]));
-        df.push("English", Series::new(vec![
-            0f64,
-            0f64,
-            self.english().rank() as f64,
-        ]));
-        df.push("Chemistry", Series::new(vec![
-            self.chemistry().standard_score(),
-            self.chemistry().percentile(),
-            self.chemistry().rank() as f64,
-        ]));
-        df.push("EarthScience", Series::new(vec![
-            self.earth_science().standard_score(),
-            self.earth_science().percentile(),
-            self.earth_science().rank() as f64,
-        ]));
+        df.push(
+            "Korean",
+            Series::new(vec![
+                self.korean().standard_score(),
+                self.korean().percentile(),
+                self.korean().rank() as f64,
+            ]),
+        );
+        df.push(
+            "Math",
+            Series::new(vec![
+                self.math().standard_score(),
+                self.math().percentile(),
+                self.math().rank() as f64,
+            ]),
+        );
+        df.push(
+            "English",
+            Series::new(vec![0f64, 0f64, self.english().rank() as f64]),
+        );
+        df.push(
+            "Chemistry",
+            Series::new(vec![
+                self.chemistry().standard_score(),
+                self.chemistry().percentile(),
+                self.chemistry().rank() as f64,
+            ]),
+        );
+        df.push(
+            "EarthScience",
+            Series::new(vec![
+                self.earth_science().standard_score(),
+                self.earth_science().percentile(),
+                self.earth_science().rank() as f64,
+            ]),
+        );
 
         df
     }
 
-    pub fn write_parquet(&self) {
+    pub fn write_parquet(&self) -> Result<(), Box<dyn std::error::Error>> {
         let df = self.to_dataframe();
-        df.write_parquet(&format!("{}.parquet", self.name()), CompressionOptions::Uncompressed).unwrap();
+        df.write_parquet(
+            &format!("data/{}/record.parquet", self.name()),
+            CompressionOptions::Uncompressed,
+        )?;
+        Ok(())
     }
 
     pub fn read_parquet(name: &str) -> Self {
-        let df = DataFrame::read_parquet(&format!("{}.parquet", name)).unwrap();
+        let df = DataFrame::read_parquet(&format!("data/{}/record.parquet", name)).unwrap();
         let korean: Vec<f64> = df["Korean"].to_vec();
         let math: Vec<f64> = df["Math"].to_vec();
         let english: Vec<f64> = df["English"].to_vec();
@@ -137,8 +171,18 @@ impl Record {
         record.record(Subject::Korean, korean[0], korean[1], korean[2] as usize);
         record.record(Subject::Math, math[0], math[1], math[2] as usize);
         record.record(Subject::English, 0f64, 0f64, english[2] as usize);
-        record.record(Subject::Chemistry, chemistry[0], chemistry[1], chemistry[2] as usize);
-        record.record(Subject::EarthScience, earth_science[0], earth_science[1], earth_science[2] as usize);
+        record.record(
+            Subject::Chemistry,
+            chemistry[0],
+            chemistry[1],
+            chemistry[2] as usize,
+        );
+        record.record(
+            Subject::EarthScience,
+            earth_science[0],
+            earth_science[1],
+            earth_science[2] as usize,
+        );
 
         record
     }
@@ -153,9 +197,14 @@ impl Record {
         let math = self.math().standard_score() * weight.math / weight_sum_except_eng;
         let science_required = weight.science_required();
         let science_cand = match science_required {
-            1 => self.chemistry().standard_score().max(self.earth_science().standard_score()) * 2f64,
+            1 => {
+                self.chemistry()
+                    .standard_score()
+                    .max(self.earth_science().standard_score())
+                    * 2f64
+            }
             2 => self.chemistry().standard_score() + self.earth_science().standard_score(),
-            _ => unreachable!()
+            _ => unreachable!(),
         };
         let science = science_cand * weight.science / weight_sum_except_eng;
 

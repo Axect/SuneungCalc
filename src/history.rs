@@ -1,5 +1,5 @@
+use crate::score::{Record, Subject, Subject::*};
 use peroxide::fuga::*;
-use crate::score::{Subject::*, Subject, Record};
 use std::collections::HashMap;
 
 use crate::suneung_data::*;
@@ -33,7 +33,7 @@ impl History {
         xs.reverse();
         ys.reverse();
 
-        let cs = cubic_hermite_spline(&xs, &ys, Quadratic);
+        let cs = cubic_hermite_spline(&xs, &ys, Quadratic).unwrap();
 
         self.cs_map.insert(subject, cs);
     }
@@ -59,33 +59,51 @@ impl History {
         record
     }
 
-    pub fn load_2024() -> Self {
-        let mut history = Self::new(2024);
-        history.record(Korean, &KOREAN_2024.iter().map(|x| *x as f64).collect::<Vec<f64>>());
-        history.record(Math, &MATH_2024.iter().map(|x| *x as f64).collect::<Vec<f64>>());
-        history.record(Chemistry, &CHEM_2024.iter().map(|x| *x as f64).collect::<Vec<f64>>());
-        history.record(EarthScience, &EARSCI_2024.iter().map(|x| *x as f64).collect::<Vec<f64>>());
+    pub fn load(year: usize) -> Result<Self, String> {
+        if !(2022..=2024).contains(&year) {
+            return Err(format!("Unsupported year: {}", year));
+        }
 
-        history
-    }
+        let mut history = Self::new(year);
 
-    pub fn load_2023() -> Self {
-        let mut history = Self::new(2023);
-        history.record(Korean, &KOREAN_2023.iter().map(|x| *x as f64).collect::<Vec<f64>>());
-        history.record(Math, &MATH_2023.iter().map(|x| *x as f64).collect::<Vec<f64>>());
-        history.record(Chemistry, &CHEM_2023.iter().map(|x| *x as f64).collect::<Vec<f64>>());
-        history.record(EarthScience, &EARSCI_2023.iter().map(|x| *x as f64).collect::<Vec<f64>>());
+        // 연도별 데이터 매핑
+        let (korean, math, chem, earth) = match year {
+            2024 => (
+                KOREAN_2024.to_vec(),
+                MATH_2024.to_vec(),
+                CHEM_2024.to_vec(),
+                EARSCI_2024.to_vec(),
+            ),
+            2023 => (
+                KOREAN_2023.to_vec(),
+                MATH_2023.to_vec(),
+                CHEM_2023.to_vec(),
+                EARSCI_2023.to_vec(),
+            ),
+            2022 => (
+                KOREAN_2022.to_vec(),
+                MATH_2022.to_vec(),
+                CHEM_2022.to_vec(),
+                EARSCI_2022.to_vec(),
+            ),
+            _ => unreachable!(),
+        };
 
-        history
-    }
+        // 각 과목별 데이터 기록
+        history.record(
+            Korean,
+            &korean.iter().map(|&x| x as f64).collect::<Vec<f64>>(),
+        );
+        history.record(Math, &math.iter().map(|&x| x as f64).collect::<Vec<f64>>());
+        history.record(
+            Chemistry,
+            &chem.iter().map(|&x| x as f64).collect::<Vec<f64>>(),
+        );
+        history.record(
+            EarthScience,
+            &earth.iter().map(|&x| x as f64).collect::<Vec<f64>>(),
+        );
 
-    pub fn load_2022() -> Self {
-        let mut history = Self::new(2022);
-        history.record(Korean, &KOREAN_2022.iter().map(|x| *x as f64).collect::<Vec<f64>>());
-        history.record(Math, &MATH_2022.iter().map(|x| *x as f64).collect::<Vec<f64>>());
-        history.record(Chemistry, &CHEM_2022.iter().map(|x| *x as f64).collect::<Vec<f64>>());
-        history.record(EarthScience, &EARSCI_2022.iter().map(|x| *x as f64).collect::<Vec<f64>>());
-
-        history
+        Ok(history)
     }
 }
