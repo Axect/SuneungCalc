@@ -151,6 +151,10 @@ impl Record {
 
     pub fn write_parquet(&self) -> Result<(), Box<dyn std::error::Error>> {
         let df = self.to_dataframe();
+        let path = format!("data/{}", self.name());
+        if !std::path::Path::new(&path).exists() {
+            std::fs::create_dir(&path)?;
+        }
         df.write_parquet(
             &format!("data/{}/record.parquet", self.name()),
             CompressionOptions::Uncompressed,
@@ -239,6 +243,7 @@ pub enum University {
     SOONGSIL,
     KONKUK,
     CATHOLIC,
+    CHUNGANG,
 }
 
 impl University {
@@ -256,6 +261,7 @@ impl University {
             University::SOONGSIL => "숭실대",
             University::KONKUK => "건국대",
             University::CATHOLIC => "가톨릭대",
+            University::CHUNGANG => "중앙대",
         }
     }
 }
@@ -326,6 +332,7 @@ impl UniversityWeight {
             (University::SOONGSIL, 2023) => make_university_weight!(SOONGSIL, 2023),
             (University::CATHOLIC, 2023) => make_university_weight!(CATHOLIC, 2023),
             // 2024
+            (University::CHUNGANG, 2024) => make_university_weight!(CHUNGANG, 2024),
             (University::KYUNGHEE, 2024) => make_university_weight!(KYUNGHEE, 2024),
             (University::DONGGUK, 2024) => make_university_weight!(DONGGUK, 2024),
             (University::SEOULSCITECH, 2024) => make_university_weight!(SEOULSCITECH, 2024),
@@ -338,6 +345,11 @@ impl UniversityWeight {
             (University::SOONGSIL, 2024) => make_university_weight!(SOONGSIL, 2024),
             (University::KONKUK, 2024) => make_university_weight!(KONKUK, 2024),
             (University::CATHOLIC, 2024) => make_university_weight!(CATHOLIC, 2024),
+            // 2025
+            (University::CHUNGANG, 2025) => make_university_weight!(CHUNGANG, 2025),
+            (University::KYUNGHEE, 2025) => make_university_weight!(KYUNGHEE, 2025),
+            (University::KONKUK, 2025) => make_university_weight!(KONKUK, 2025),
+            (University::DONGGUK, 2025) => make_university_weight!(DONGGUK, 2025),
             _ => unimplemented!(),
         }
     }

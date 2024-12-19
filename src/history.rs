@@ -60,7 +60,7 @@ impl History {
     }
 
     pub fn load(year: usize) -> Result<Self, String> {
-        if !(2022..=2024).contains(&year) {
+        if !(2022..=2025).contains(&year) {
             return Err(format!("Unsupported year: {}", year));
         }
 
@@ -68,6 +68,12 @@ impl History {
 
         // 연도별 데이터 매핑
         let (korean, math, chem, earth) = match year {
+            2025 => (
+                KOREAN_2025.to_vec(),
+                MATH_2025.to_vec(),
+                CHEM_2025.to_vec(),
+                EARSCI_2025.to_vec(),
+            ),
             2024 => (
                 KOREAN_2024.to_vec(),
                 MATH_2024.to_vec(),

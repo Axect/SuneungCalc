@@ -21,28 +21,27 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         std::fs::create_dir("data").unwrap();
     }
 
-    // Make options for choosing subdiretory or creating new one
-    let mut options = vec![];
-    for entry in std::fs::read_dir("data")? {
-        let path = entry?.path();
-        if path.is_dir() {
-            if let Some(name) = path.file_name() {
-                if let Some(name) = name.to_str() {
-                    options.push(name.to_string());
-                }
-            }
-        }
-    }
-    options.push("Create new record".to_string());
-
     // Choose subdirectory or create new one
     let theme = ColorfulTheme::default();
     let record = loop {
-        let idx = Select::with_theme(&theme)
-            .with_prompt("Choose record")
-            .items(&options)
-            .default(0)
-            .interact()?;
+        // Make options for choosing subdiretory or creating new one
+        let mut options = vec![];
+        for entry in std::fs::read_dir("data")? {
+            let path = entry?.path();
+            if path.is_dir() {
+                if let Some(name) = path.file_name() {
+                    if let Some(name) = name.to_str() {
+                        options.push(name.to_string());
+                    }
+                }
+            }
+        }
+        options.push("Create new record".to_string());
+            let idx = Select::with_theme(&theme)
+                .with_prompt("Choose record")
+                .items(&options)
+                .default(0)
+                .interact()?;
 
         // If create new directory, input name and scores
         if idx == options.len() - 1 {
@@ -85,27 +84,30 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .default(0)
         .items(&[2025, 2024, 2023, 2022])
         .interact()?;
+    let year = 2025 - year;
 
-    let df = match year {
-        2025 => record.to_dataframe(),
+    let record = match year {
+        2025 => record,
         _ => {
             let history = History::load(year)?;
-            history.eval_all(&record).to_dataframe()
+            history.eval_all(&record)
         }
     };
 
     let mut table = Table::new();
-    add_univ_score!(table, df, KYUNGHEE, year);
-    add_univ_score!(table, df, DONGGUK, year);
-    add_univ_score!(table, df, KOOKMIN, year);
-    add_univ_score!(table, df, CATHOLIC, year);
-    add_univ_score!(table, df, SEOULSCITECH, year);
-    add_univ_score!(table, df, SOONGSIL, year);
-    add_univ_score!(table, df, AJU, year);
-    add_univ_score!(table, df, INHA, year);
-    add_univ_score!(table, df, SEJONG, year);
-    add_univ_score!(table, df, ERICA, year);
-    add_univ_score!(table, df, KWANGWOON, year);
+    add_univ_score!(table, record, CHUNGANG, year);
+    add_univ_score!(table, record, KYUNGHEE, year);
+    add_univ_score!(table, record, KONKUK, year);
+    add_univ_score!(table, record, DONGGUK, year);
+    //add_univ_score!(table, record, KOOKMIN, year);
+    //add_univ_score!(table, record, CATHOLIC, year);
+    //add_univ_score!(table, record, SEOULSCITECH, year);
+    //add_univ_score!(table, record, SOONGSIL, year);
+    //add_univ_score!(table, record, AJU, year);
+    //add_univ_score!(table, record, INHA, year);
+    //add_univ_score!(table, record, SEJONG, year);
+    //add_univ_score!(table, record, ERICA, year);
+    //add_univ_score!(table, record, KWANGWOON, year);
 
     table.printstd();
 
