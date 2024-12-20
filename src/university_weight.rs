@@ -1,6 +1,11 @@
 // ┌──────────────────────────────────────────────────────────┐
 //  2025
 // └──────────────────────────────────────────────────────────┘
+pub const SOGANG_2025_WEIGHT: [usize; 4] = [367, 433, 0, 200];
+pub const SOGANG_2025_ENG: [usize; 6] = [100, 99, 98, 97, 96, 95];
+pub const SOGANG_2025_SCI_REQ: usize = 2;
+pub const SOGANG_2025_ENG_REQ: usize = 2;
+
 pub const CHUNGANG_2025_WEIGHT: [usize; 4] = [30, 35, 0, 35];
 pub const CHUNGANG_2025_ENG: [usize; 6] = [100, 98, 95, 92, 86, 75];
 pub const CHUNGANG_2025_SCI_REQ: usize = 2;
@@ -10,6 +15,11 @@ pub const KYUNGHEE_2025_WEIGHT: [usize; 4] = [20, 35, 15, 30];
 pub const KYUNGHEE_2025_ENG: [usize; 6] = [200, 196, 188, 160, 120, 80];
 pub const KYUNGHEE_2025_SCI_REQ: usize = 2;
 pub const KYUNGHEE_2025_ENG_REQ: usize = 2;
+
+pub const SEOUL_2025_WEIGHT: [usize; 4] = [20, 40, 10, 30];
+pub const SEOUL_2025_ENG: [usize; 6] = [100, 98, 94, 90, 86, 82];
+pub const SEOUL_2025_SCI_REQ: usize = 2;
+pub const SEOUL_2025_ENG_REQ: usize = 2;
 
 pub const KONKUK_2025_WEIGHT: [usize; 4] = [30, 40, 10, 20];
 pub const KONKUK_2025_ENG: [usize; 6] = [200, 197, 190, 185, 180, 170];
@@ -24,7 +34,12 @@ pub const DONGGUK_2025_ENG_REQ: usize = 2;
 // ┌──────────────────────────────────────────────────────────┐
 //  2024
 // └──────────────────────────────────────────────────────────┘
-pub const CHUNGANG_2024_WEIGHT: [usize; 4] = [40, 40, 0, 20];
+pub const SOGANG_2024_WEIGHT: [usize; 4] = [367, 433, 0, 200];
+pub const SOGANG_2024_ENG: [usize; 6] = [100, 99, 98, 97, 96, 95];
+pub const SOGANG_2024_SCI_REQ: usize = 2;
+pub const SOGANG_2024_ENG_REQ: usize = 2;
+
+pub const CHUNGANG_2024_WEIGHT: [usize; 4] = [25, 40, 0, 35];
 pub const CHUNGANG_2024_ENG: [usize; 6] = [100, 98, 95, 92, 86, 75];
 pub const CHUNGANG_2024_SCI_REQ: usize = 2;
 pub const CHUNGANG_2024_ENG_REQ: usize = 2;
@@ -33,6 +48,11 @@ pub const KYUNGHEE_2024_WEIGHT: [usize; 4] = [20, 35, 15, 30];
 pub const KYUNGHEE_2024_ENG: [usize; 6] = [200, 196, 188, 160, 120, 80];
 pub const KYUNGHEE_2024_SCI_REQ: usize = 2;
 pub const KYUNGHEE_2024_ENG_REQ: usize = 2;
+
+pub const SEOUL_2024_WEIGHT: [usize; 4] = [20, 35, 10, 35];
+pub const SEOUL_2024_ENG: [usize; 6] = [100, 98, 94, 90, 86, 82];
+pub const SEOUL_2024_SCI_REQ: usize = 2;
+pub const SEOUL_2024_ENG_REQ: usize = 2;
 
 pub const DONGGUK_2024_WEIGHT: [usize; 4] = [25, 35, 15, 25];
 pub const DONGGUK_2024_ENG: [usize; 6] = [200, 199, 197, 190, 180, 140];

@@ -1,7 +1,6 @@
 #[macro_use]
 extern crate prettytable;
 use dialoguer::{theme::ColorfulTheme, Input, Select};
-use peroxide::fuga::*;
 use prettytable::Table;
 use suneung_calc::{
     history::History,
@@ -95,8 +94,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
 
     let mut table = Table::new();
+    add_univ_score!(table, record, SOGANG, year);
     add_univ_score!(table, record, CHUNGANG, year);
     add_univ_score!(table, record, KYUNGHEE, year);
+    add_univ_score!(table, record, SEOUL, year);
     add_univ_score!(table, record, KONKUK, year);
     add_univ_score!(table, record, DONGGUK, year);
     //add_univ_score!(table, record, KOOKMIN, year);
